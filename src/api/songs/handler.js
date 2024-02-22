@@ -1,7 +1,7 @@
 const Handler = require('../Handler');
 
 class SongsHandler extends Handler {
-    async postSongHandler(req, h) {
+    async postSong(req, h) {
         this._validator.validateSongPayload(req.payload);
         const songId = await this._service.addSong(req.payload);
 
@@ -16,7 +16,7 @@ class SongsHandler extends Handler {
         return response;
     }
 
-    async getSongsHandler() {
+    async getSongs() {
         const songs = await this._service.getSongs();
         return {
             status: 'success',
@@ -30,7 +30,7 @@ class SongsHandler extends Handler {
         };
     }
 
-    async getSongByIdHandler(req) {
+    async getSongById(req) {
         const { songId } = req.params;
         const song = await this._service.getSongById(songId);
         return {
@@ -41,7 +41,7 @@ class SongsHandler extends Handler {
         };
     }
 
-    async putSongByIdHandler(req, h) {
+    async putSongById(req, h) {
         this._validator.validateSongPayload(req.payload);
         const { songId } = req.params;
 
@@ -55,7 +55,7 @@ class SongsHandler extends Handler {
         return response;
     }
 
-    async deleteSongByIdHandler(req, h) {
+    async deleteSongById(req, h) {
         const { songId } = req.params;
 
         await this._service.deleteSongById(songId);
